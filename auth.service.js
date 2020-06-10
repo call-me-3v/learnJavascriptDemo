@@ -1,28 +1,37 @@
 class AuthSevice {
   constructor() {
-    this.database = [];
+    this.database = [
+      { username: "User 1", name: "test user 1", password: "12344" },
+      { username: "User 2", name: "test user 2", password: "123e4" },
+      { username: "User 3", name: "test user 3", password: "123s44" },
+      { username: "User 4", name: "test user 4", password: "12044" },
+    ];
     this.session = {};
     this.isAuthenticated = false;
   }
 
   createUser(userInfo = { username, name, password }) {
     if (userInfo && Object.keys(userInfo).length > 0) {
-      if (!this.isUsernameTaken)
+      if (this.isUsernameTaken(userInfo.username)) {
         throw new Error("Sorry, username already taken ):");
-      this.database.push(userInfo);
-      return console.log("user successfully registered (:");
+      } else {
+        this.database.push(userInfo);
+        return console.log("user successfully registered (:");
+      }
+    } else {
+      throw new Error("provide user information ):");
     }
-    throw new Error("provide user information ):");
   }
 
   isUsernameTaken(username) {
-    const result = this.database((info) => info.username === username);
-    return result !== null;
+    const result = this.database.find((info) => info.username === username);
+    return result === null;
   }
 
   loginUser(cred = { username, password }) {
-    if (cred && Object.keys(cred).length === 0)
+    if (cred && Object.keys(cred).length === 0) {
       throw new Error("provide credentials");
+    }
 
     const result = this.database.find(
       (info) => info.username === cred.username
@@ -55,15 +64,20 @@ class AuthSevice {
     };
     for (let [key, values] of Object.entries(info)) {
       updateInfo[key] = values;
+
     }
 
     return updateInfo;
+  }
+
+  showAvailUsers() {
+    console.log("Available users", this.database);
   }
 }
 
 const authService = new AuthSevice();
 
-/* 
+/*
  ** request user registration
  */
 
@@ -97,3 +111,8 @@ const reqUpdate = {
 };
 
 authService.updateUserInfo(reqUpdate);
+
+/**
+ * show all users in the database
+ */
+authService.showAvailUsers();
