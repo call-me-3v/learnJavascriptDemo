@@ -32,11 +32,24 @@ class TodoTask {
   }
 
   updateCompletedTask(result, isComplete) {
+    // if(isComplete){
+    //   result.isComplete = isComplete;
+    // }
+    // the above statement is the same as the below statememt
     if (!isComplete) return;
     result.isComplete = isComplete;
   }
 
+  /* the function parameters is optional with 
+ interval default value = 0 and limit = database length
+ NB we use this approach when we don't want to check for null
+ values from the user input
+*/
   showCompletedTask({ interval = 0, limit = this.getDatabaseSize() } = {}) {
+    /*
+  filter return an array 
+  find return and object
+ */
     const result = this.database.filter((task) => task.isComplete === true);
     console.log("\nCompleted tasks: ", result.slice(interval, limit));
   }

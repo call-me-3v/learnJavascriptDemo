@@ -1,30 +1,16 @@
-class ToDoTask {
-  constructor() {
-    this.database = [];
-  }
-  getDatabaseSize() {
-    return this.database.length;
-  }
+const database = [
+  { id: 1, username: "3V", name: "Vincent" },
+  { id: 1, username: "Cheese", name: "Kelvin" },
+  { id: 2, username: "Mouse", name: "Bob" },
+  { id: 3, username: "3G", name: "Mtn" },
+];
 
-  addTask(task = { title }) {
-    if (!task) {
-      console.log("add title");
-    }
-    let count = this.getDatabaseSize() + 1;
-    const newTask = {
-      id: count,
-      title: task.title,
-      isCompleted: false,
-      createdAt: new Date().toLocaleString(),
-    };
-    this.database.push(newTask);
-    console.log(this.database)
-  }
+const result = database.filter((info) => info.id === 0);
+
+console.log(result);
+
+if (result.length > 0) {
+  console.log("leng");
 }
 
-const reqNewTask = {
-  title: "Activities for this morning",
-};
-
-const toDoTask = new ToDoTask();
-toDoTask.addTask(reqNewTask);
+console.log(database.slice(0,3));
